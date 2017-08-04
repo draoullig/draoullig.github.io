@@ -1,0 +1,36 @@
+---
+layout: post
+title: Configuration d'un proxy sous Maven
+date: 2013-04-10 08:49:53.000000000 +02:00
+type: post
+published: true
+status: publish
+categories:
+- Informatique
+tags: []
+meta:
+  _edit_last: '1'
+author:
+  login: superuser
+  email: frederic_gillouard@yahoo.com
+  display_name: superuser
+  first_name: ''
+  last_name: ''
+---
+<p>La configuration d'un proxy sous Maven s'effectue dans le fichier settings.xml.</p>
+<p>Ce fichier se trouve soit dans le sous-répertoire conf du répertoire d'installation de maven, ou dans le répertoire .m2 dans la home utilisateur.</p>
+<p>Dans le fichier settings.xml, il existe une section proxies :</p>
+<pre class="">
+<proxies>
+   <proxy>
+      <active>true</active>
+      <protocol>http</protocol>
+      <host>proxy.somewhere.com</host>
+      <port>8080</port>
+      <username>proxyuser</username>
+      <password>somepassword</password>
+      <nonproxyhosts>www.google.com|*.somewhere.com</nonproxyhosts>
+    </proxy>
+</proxies>
+</pre>
+<p>Pour activer un proxy, il suffit de le décommenter et de renseigner les champs avec les valeurs adéquates. La petite subtilité concerne les champs que l'on ne souhaite pas utiliser, il faut les supprimer et non pas les mettre à vide en utilisant la syntaxe &lt;champs/&gt;.</p>

@@ -1,0 +1,35 @@
+---
+layout: post
+title: Renommer un projet GWT sous Eclipse
+date: 2013-11-18 15:22:28.000000000 +01:00
+type: post
+published: true
+status: publish
+categories:
+- Informatique
+tags: []
+meta:
+  _edit_last: '1'
+  supernova_post_views_count: '7'
+author:
+  login: superuser
+  email: frederic_gillouard@yahoo.com
+  display_name: superuser
+  first_name: ''
+  last_name: ''
+---
+<p>Voici une petite procédure pour renommer un projet GWT sous Eclipse :</p>
+<ol>
+<li>Renommez le projet gwt.</li>
+<li>Renommez le fichier <em>ancien_nom_projet.gwt.xml</em> en <em>nouveau_nom_projet.gwt.xml.</em></li>
+<li>Dans ce fichier, renommez la valeur spécifiée dans le champs 'rename-to' avec le nouveau nom de projet.</li>
+<li>Renommez le fichier <em>ancien_nom_projet.html </em>en <em>nouveau_nom_projet.html</em> présent dans le répertoire war.</li>
+<li>Faites de même avec le fichier .css présent dans le répertoire war.</li>
+<li>Mettez à jour les références dans <em>nouveau_nom_projet.html</em> du fichier css.</li>
+<li>Dans le fichier <em>nouveau_nom_projet.html</em>, il y a un nom spécifié pour le nocache.js. Trouvez la ligne : <em>src = 'ancien_nom_projet/ancien_nom_projet.nocache.js' </em>et la remplacer par <em>src = 'nouveau_nom_projet/nouveau_nom_projet.nocache.js'</em></li>
+<li>Dans le fichier web.xml, si vous avez des lignes <code><em>&lt;url-pattern&gt;/ancien_nom_projet/...&lt;/url-pattern&gt;</em>, les remplacer par <code><em>&lt;url-pattern&gt;/nouveau_nom_projet/...&lt;/url-pattern&gt;</em></code></code></li>
+<li>Si vous utilisez l'injection Guice dans votre projet, changez les urls avec le nouveau nom de projet dans le mapping.</li>
+<li>Détruisez le répertoire de sortie (<em>war/ancien_nom_projet</em>), il sera reconstruit automatiquement avec le bon nom de projet.</li>
+<li>Dans Eclipse, détruisez votre ancienne "<em>Run Configuration</em>". Lorsque vous lancerez via  "<em>Run As &gt; Web Application</em>" sur le projet renommé, la configuration sera recréée.</li>
+<li>Il ne vous reste plus qu'à lancer la compilation du projet via la boite de dialogue associée de GWT. Si la référence à l'ancien projet est toujours présente dans cette dernière, il faut la mettre à jour via les boutons <em>add</em> et <em>remove</em> de la boite de dialogue.</li>
+</ol>

@@ -1,0 +1,23 @@
+---
+layout: post
+title: Le lancement d'Eclipse reste bloqué sur le chargement du workspace
+date: 2014-05-13 13:16:21.000000000 +02:00
+type: post
+published: true
+status: publish
+categories:
+- Informatique
+tags: []
+meta:
+  _edit_last: '1'
+author:
+  login: superuser
+  email: frederic_gillouard@yahoo.com
+  display_name: superuser
+  first_name: ''
+  last_name: ''
+---
+<p>Le lancement d'Eclipse reste bloqué sur le chargement du workspace ce qui se traduit par l'immobilisation de la barre de progression.</p>
+<p>Pour débloquer le workspace incriminé, il faut accèder à ce dernier via le gestionnaire de fichier de votre OS ou en ligne de commande. Attention, il s'agit de fichiers cachés.<br />
+Ouvrir le répertoire <em>.metadata/.plugins/org.eclipse.core.resources</em> du workspace, et supprimer le fichier appelé <em>.snap</em>.<br />
+Lancer Eclipse et normalement ce dernier devrait réussir à charger de nouveau le workspace.</p>

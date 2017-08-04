@@ -1,0 +1,86 @@
+---
+layout: post
+title: Rest Client Get avec Spring
+date: 2015-04-30 08:50:06.000000000 +02:00
+type: post
+published: true
+status: publish
+categories:
+- Informatique
+tags: []
+meta:
+  _edit_last: '1'
+author:
+  login: superuser
+  email: frederic_gillouard@yahoo.com
+  display_name: superuser
+  first_name: ''
+  last_name: ''
+---
+<p>La mise en œuvre d'un client REST Get peut être facilement réalisée en utilisant la librairie Spring 4.</p>
+<h3><span style="text-decoration: underline;">Près-requis</span></h3>
+<p>Vous avez une environnement Eclipse fonctionnel avec à minima un jdk 1.6 et un tomcat 7.0.<br />
+Vous avez réalisé et réussi le tutorial <a title="Rest Web Service Get avec Spring" href="http://gillouard.fr/?p=503" target="_blank">Rest Web Service Get avec Spring</a>.</p>
+<h3 id="HPrE9parationduprojet"><span style="text-decoration: underline;">Préparation du projet</span></h3>
+<p>Pour commencer, je vous invite à récupérer le squelette du projet sur mon github dans un répertoire projet via les commandes :</p>
+<p><em><tt>git clone https://github.com/draoullig/SpringRestClient.git</tt></em></p>
+<p><em><tt>cd SpringRestClient</tt></em></p>
+<p><em><tt>git checkout step0</tt></em></p>
+<p><em><tt>mkdir src</tt></em></p>
+<p>Importer le projet sous Eclipse via <em><tt>File&gt;Import&gt;General&gt;Existing Projects into Workspace</tt></em> et sélectionner <em><tt>SpringRestClient</tt></em> dans le répertoire dans lequel vous avez réalisé le <em><tt>git clone</tt></em>, puis finissez l'import.</p>
+<p>Dans la vue "Java EE - Eclipse", ajouter le package <em><tt>fr.gillouard.spring.restclient</tt></em> via un click droit sur <em><tt>src&gt;New&gt;Package</tt></em> et valider.</p>
+<p>Les librairies nécessaires au projet sont présentes dans le répertoire <em><tt>/lib</tt></em>.</p>
+<h3 id="HPojo"><span style="text-decoration: underline;">Pojo</span></h3>
+<p>Les classes <span class="wikiexternallink"><a title="Pojo" href="http://fr.wikipedia.org/wiki/Plain_Old_Java_Object">Pojo</a></span> vont permettre de récupérer le modèle issu du web service Rest.</p>
+<h4 id="HPackage"><span style="text-decoration: underline;">Package</span></h4>
+<p>Création d'un nouveau package <em><tt>pojo</tt></em> sous le package <em><tt>fr.gillouard.spring.restclient</tt></em>.<br />
+Pour cela faire un clic droit sur le package <em><tt>fr.gillouard.spring.restclient</tt></em> et cliquer sur <em><tt>New/Package</tt></em>.<br />
+Ajouter .<em><tt>pojo</tt></em> à <em><tt>fr.gillouard.spring.restclient</tt></em> dans le champs <em><tt>Name</tt></em> de la boite de dialogue <em><tt>New Java Package</tt></em> et cliquer sur <em><tt>Finish</tt></em>.</p>
+<h4 id="HClient"><span style="text-decoration: underline;">Client</span></h4>
+<p>Copier la classe <em><tt>Client</tt></em> présent dans le projet <em><tt>SpringRestWS</tt></em> sous le package <em><tt>fr.gillouard.spring.restws.pojo</tt></em> dans le package <em><tt>fr.gillouard.spring.restclient.pojo</tt></em> du projet <em><tt>SpringRestClient</tt></em>.</p>
+<p>Pour la conversion java à json, il est nécessaire d'ajouter un constructeur par défaut à cette classe après la dernière déclaration de membre privé :</p>
+<pre class="lang:java decode:true" title="Constructeur par defaut">/**
+  * Constructeur par defaut.
+  */
+ public Client() {
+
+ }</pre>
+<p><span style="text-decoration: underline;">RestClient</span></p>
+<p>La classe <em><tt>RestClient</tt></em> effectue l'appel vers le web service Rest et affiche dans la console les résultats de l'appel.</p>
+<p>Création d'une nouvelle classe dans le package <em><tt>fr.gillouard.spring.restclient</tt></em>. Pour cela faire un clic droit sur le package <em><tt>fr.gillouard.spring.restclient</tt></em> et cliquer sur <em><tt>New/Class</tt></em>.<br />
+Saisir <em><tt>RestClient</tt></em> dans le champs <em><tt>Name</tt></em> de la boite de dialogue <em><tt>New Java Class</tt></em>, supprimer le <em><tt>.pojo</tt></em> dans le nom du package du champs <em><tt>Package</tt></em> et cocher <em><tt>public static void main(String[] args)</tt></em> puis cliquer sur <em><tt>Finish</tt></em>.<br />
+Ouvrir le fichier <em><tt>RestClient.java</tt></em> en double cliquant dessus.</p>
+<p>Ajouter les imports suivants :</p>
+<pre class="lang:default decode:true" title="Import RestClient">import java.util.List;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.web.client.RestTemplate;
+import fr.gillouard.spring.restclient.pojo.Client;</pre>
+<p>Ajouter le code suivant à la fonction <em><tt>main</tt></em> de la classe :</p>
+<pre class="lang:default decode:true " title="Code RestClient">final List&lt;Client&gt; clients = new RestTemplate().exchange(
+    "http://localhost:8080/SpringRestWS/client", HttpMethod.GET, null,
+    new ParameterizedTypeReference&lt;List&lt;Client&gt;&gt;() {
+    }).getBody();
+  System.out.println(new StringBuilder("Taille de la liste : ").append(
+    clients.size()).toString());
+  for (final Client client : clients) {
+   System.out.println(new StringBuilder(client.getNom()).append(" ")
+     .append(client.getPrenom()).toString());
+  }</pre>
+<p>La classe <em><tt>RestTemplate</tt></em> de Spring encapsule toute la mécanique d'appel à un service REST.<br />
+Il est nécessaire de préciser l'url de destination, la méthode d'appel, les paramètres éventuels et le type de retour.<br />
+Pour la conversion de données entre le java et le json, <em><tt>Spring</tt></em> utilise les librairies <em><tt>Jackson</tt></em> ce qui demande dans notre cas de définir explicitement le type de retour parce que nous attendons une liste de client via l'instruction <em><tt>new ParameterizedTypeReference&lt;List&lt;Client&gt;&gt;() {}</tt></em>. Si ce paramétrage est absent, nous obtiendrions une liste de type <em><tt>LinkedHashMap</tt></em> qui est la conversion par défaut de <em><tt>Jackson</tt></em> pour un flux json représentant une liste.<br />
+Les instructions suivantes affichent la taille de la liste, les noms et prénoms récupérés.</p>
+<p><span style="text-decoration: underline;">Runtime</span></p>
+<p>Pour tester le client, il est nécessaire de déployer le projet <em><tt>CodelabRestWS</tt></em> sous un <em><tt>Tomcat v7.0</tt></em> et de l'exécuter (Se référer au tutorial correspondant).<br />
+Effectuer un clic droit sur la classe <em><tt>RestClient</tt></em> dans la vue <em><tt>Project Explorer</tt></em>, puis <em><tt>Debug As/Java Application</tt></em>.</p>
+<p>La vue <em><tt>Console</tt></em> devrait ressembler à ceci :</p>
+<pre class="lang:default decode:true" title="Resultat appel client">Taille de la liste : 3
+Dupont Jules
+Martin Anne
+Le Gall Bruno</pre>
+<p><span style="text-decoration: underline;">Conclusion</span></p>
+<p>Ce tutorial a permis d'expliquer la mise en oeuvre d'un client REST en utilisant Spring.<br />
+Les tutoriaux suivants permettront de compléter la richesse fonctionnelle de ce client.</p>
+<p><span style="text-decoration: underline;">Solution</span></p>
+<p>L'ensemble des sources de ce tutorial est disponible sous le tag <em><tt>step1</tt></em>.</p>

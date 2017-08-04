@@ -1,0 +1,23 @@
+---
+layout: post
+title: Arrêter ou supprimer une liste de container Docker
+date: 2015-02-06 16:11:19.000000000 +01:00
+type: post
+published: true
+status: publish
+categories:
+- Informatique
+tags: []
+meta:
+  _edit_last: '1'
+author:
+  login: superuser
+  email: frederic_gillouard@yahoo.com
+  display_name: superuser
+  first_name: ''
+  last_name: ''
+---
+<p>Il peut être fastidieux de supprimer un ensemble de container Docker qui sont en fonctionnement.</p>
+<p>Il est possible de tous les arrêter ou de tous les supprimer via les commandes suivantes :</p>
+<pre class="lang:sh decode:true " title="Arrêter ou supprimer une liste de container Docker">docker stop $(docker ps -a -q)
+docker rm $(docker ps -a -q)</pre>

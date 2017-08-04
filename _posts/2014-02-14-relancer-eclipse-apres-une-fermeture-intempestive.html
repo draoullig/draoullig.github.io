@@ -1,0 +1,29 @@
+---
+layout: post
+title: Relancer eclipse après une fermeture intempestive
+date: 2014-02-14 15:27:00.000000000 +01:00
+type: post
+published: true
+status: publish
+categories:
+- Informatique
+tags: []
+meta:
+  _edit_last: '1'
+author:
+  login: superuser
+  email: frederic_gillouard@yahoo.com
+  display_name: superuser
+  first_name: ''
+  last_name: ''
+---
+<p>Lorsque Eclipse se ferme de façon intempestive et qu'il est impossible de le relancer, ce dernier restant bloqué sur le chargement du Workbench, voici une petite procèdure qui peut permettre de corriger la situation :</p>
+<p>1 - Se positionner dans le repertoire workspace<br />
+2 - cd .metadata/.plugins<br />
+3 - mv org.eclipse.core.resources org.eclipse.core.resources.bak (Déplacer le répertoire resources)<br />
+4 - Démarrer eclipse. (Un message d'erreur est possible parce qu'il ne retrouve plus ses projets)<br />
+5 - Fermer tous les fichiers ouverts.<br />
+6 - Quitter eclipse<br />
+7 - rm -rf org.eclipse.core.resources (Détruire le nouveau répertoire resources)<br />
+8 - mv org.eclipse.core.resources.bak/ org.eclipse.core.resources (Restaurer le répertoire original)<br />
+9 - Démarrer eclipse qui devrait récupérer le workspace original</p>
