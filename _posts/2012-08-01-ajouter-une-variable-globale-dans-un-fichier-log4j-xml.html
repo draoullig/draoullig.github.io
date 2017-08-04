@@ -1,0 +1,41 @@
+---
+layout: post
+title: Variable globale dans un fichier log4j.xml
+date: 2012-08-01 07:28:03.000000000 +02:00
+type: post
+published: true
+status: publish
+categories:
+- Informatique
+tags: []
+meta:
+  _edit_last: '1'
+author:
+  login: superuser
+  email: frederic_gillouard@yahoo.com
+  display_name: superuser
+  first_name: ''
+  last_name: ''
+---
+<p>Dans un fichier log4j il peut être intéressant de déclarer une variable globale pour par exemple centraliser le répertoire de destination des fichiers.</p>
+<p>Pour cela il faut utiliser le mot clé ENTITY pour déclarer la variable dans l'entête. Voici un exemple pour expliquer cette utilisation :</p>
+<p>&nbsp;</p>
+<p>&lt;!DOCTYPE log4j:configuration SYSTEM &quot;log4j.dtd&quot; [</p>
+<p style="padding-left: 30px;">&lt;!ENTITY REP_DEST &quot;/opt/logs/exemple/&quot;&gt;</p>
+<p>]&gt;</p>
+<p>&lt;log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/'&gt;</p>
+<p style="padding-left: 30px;">&lt;!-- Appender Default --&gt;</p>
+<p style="padding-left: 30px;">&lt;appender name=&quot;Default&quot; class=&quot;org.apache.log4j.FileAppender&quot;&gt;</p>
+<p style="padding-left: 60px;">&lt;param name=&quot;File&quot; value=&quot;&amp;REP_DEST;/default.log&quot; /&gt;</p>
+<p style="padding-left: 60px;">&lt;param name=&quot;Append&quot; value=&quot;false&quot;/&gt;</p>
+<p style="padding-left: 60px;">&lt;layout class=&quot;org.apache.log4j.PatternLayout&quot;&gt;</p>
+<p style="padding-left: 90px;">&lt;param name=&quot;ConversionPattern&quot; value=&quot;%d [%-5p] %37c (%M() ligne %L) %m%n&quot;/&gt;</p>
+<p style="padding-left: 60px;">&lt;/layout&gt;</p>
+<p style="padding-left: 30px;">&lt;/appender&gt;</p>
+<p style="padding-left: 30px;">&lt;!-- Par défaut --&gt;</p>
+<p style="padding-left: 30px;">&lt;root&gt;</p>
+<p style="padding-left: 60px;">&lt;level value=&quot;DEBUG&quot; /&gt;</p>
+<p style="padding-left: 60px;">&lt;appender-ref ref=&quot;Default&quot; /&gt;</p>
+<p style="padding-left: 30px;">&lt;/root&gt;</p>
+<p>&lt;/log4j:configuration&gt;</p>
+<p>&nbsp;</p>

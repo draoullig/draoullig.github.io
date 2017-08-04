@@ -1,0 +1,44 @@
+---
+layout: post
+title: Gestion de dépôt par environnement sous IVY
+date: 2012-01-19 10:42:33.000000000 +01:00
+type: post
+published: true
+status: publish
+categories:
+- Informatique
+---
+<p><a href="http://ant.apache.org/ivy/">Apache Ivy™</a> est un gestionnaire de dépendance qui se concentre sur la flexibilité et la simplicité.</p>
+<p>L'idée est de configurer des dépôts différents en fonction des environnements (Développement, recette, production...). Cela doit permettre, par exemple en développement, de réaliser des publications temporaires pour une équipe projet dans un dépôt spécifique tout en gardant la stabilités des dépôts officiels pour ne pas impacter les autres équipes projet.</p>
+<p>Commençons par définir une variable d'environnements, qui sera valorisée par le script ant appelant dans le fichier ivysetting.xml :</p>
+<p>&lt;ivysettings&gt;</p>
+<p style="padding-left: 30px;">&lt;property name="ivy.env" value="-${environnement}" /&gt;</p>
+<p>Supposons que nous avons les resolvers suivants :</p>
+<p>&lt;resolvers&gt;</p>
+<p style="padding-left: 30px;">&lt;url name="sandbox"&gt;...&lt;/url&gt;</p>
+<p style="padding-left: 30px;">&lt;url name="local"&gt;...&lt;/url&gt;</p>
+<p style="padding-left: 30px;">&lt;url name="public"&gt;...&lt;/url&gt;</p>
+<p style="padding-left: 30px;">&lt;url name="nexus"&gt;...&lt;/url&gt;</p>
+<p>Nous allons définir des chain permettant de gérer plusieurs environnements :</p>
+<p style="padding-left: 30px;">&lt;!-- chain resolver commun --&gt;<br />
+&lt;chain name="resolver-commun"&gt;</p>
+<p style="padding-left: 60px;">&lt;resolver ref="local" /&gt;<br />
+&lt;resolver ref="public" /&gt;</p>
+<p style="padding-left: 30px;">&lt;/chain&gt;</p>
+<p style="padding-left: 30px;">&lt;!-- chain resolver developpement --&gt;<br />
+&lt;chain name="resolver-developpement"&gt;</p>
+<p style="padding-left: 60px;">&lt;resolver ref="sandbox" /&gt;</p>
+<p style="padding-left: 60px;">&lt;resolver ref="resolver-commun" /&gt;</p>
+<p style="padding-left: 30px;">&lt;/chain&gt;</p>
+<p style="padding-left: 30px;">&lt;!-- chain resolver recette --&gt;<br />
+&lt;chain name="resolver-recette"&gt;</p>
+<p style="padding-left: 60px;">&lt;resolver ref="resolver-commun" /&gt;</p>
+<p style="padding-left: 30px;">&lt;/chain&gt;</p>
+<p style="padding-left: 30px;">&lt;!-- chain resolver production --&gt;<br />
+&lt;chain name="resolver-production"&gt;</p>
+<p style="padding-left: 60px;">&lt;resolver ref="resolver-commun" /&gt;</p>
+<p style="padding-left: 60px;">&lt;resolver ref="nexus" /&gt;</p>
+<p style="padding-left: 30px;">&lt;/chain&gt;</p>
+<p>Le routage se fera via la ligne :</p>
+<p>&lt;settings defaultResolver="resolver${ivy.env}" /&gt;</p>
+<p>Ainsi en fonction de l'environnement, la liste des dépôts disponibles est différente.</p>

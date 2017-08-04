@@ -1,0 +1,33 @@
+---
+layout: post
+title: Ajouter un proxy à Boot2Docker sous Mac OS
+date: 2015-05-18 09:01:29.000000000 +02:00
+type: post
+published: true
+status: publish
+categories:
+- Informatique
+tags: []
+meta:
+  _edit_last: '1'
+author:
+  login: superuser
+  email: frederic_gillouard@yahoo.com
+  display_name: superuser
+  first_name: ''
+  last_name: ''
+---
+<ol>
+<li>Démarrer Boot2Docker via <span style="color: #999999;"><em>boot2docker start</em></span></li>
+<li>Se logguer sur Boot2Docker via <span style="color: #999999;"><em>boot2docker ssh</em></span></li>
+<li>Modifier le fichier Profile via <span style="color: #999999;"><em>sudo vi /var/lib/boot2docker/profile</em></span></li>
+<li>Ajouter la configuration du proxy (Supprimer la partie <span style="color: #999999;"><em>user:password</em></span> si votre proxy ne nécessite pas d'identification) :
+<ul>
+<li><span style="color: #999999;"><em>export https_proxy=http://user:pass@proxy.host.com:port</em></span></li>
+<li><span style="color: #999999;"><em>export http_proxy=http://user:pass@proxy.host.com:port</em></span></li>
+</ul>
+</li>
+<li>Sauvegarder et fermer le fichier</li>
+<li>Rédémarrer le service docker via : <span style="color: #999999;"><em>sudo /etc/init.d/docker restart</em></span></li>
+<li>Quitter la session ssh via : <span style="color: #999999;"><em>exit</em></span></li>
+</ol>
