@@ -1,13 +1,11 @@
-title: Fred Talks | Des petites solutions pour des petits problèmes
+title: Fred Talks | Des petites solutions pour des petits problèmes…
 email: frederic.gillouard@gmail.com
 description: >
-   Fred Talks | Des petites solutions pour des petits problèmes
+  Fred Talks | Des petites solutions pour des petits problèmes…
 baseurl: ""
 url: ""
 github_username:  draoullig
 
 # Build settings
 markdown: kramdown
-theme: jekyll-theme-architect
-plugins:
-  - jekyll-feed
+theme: architect
