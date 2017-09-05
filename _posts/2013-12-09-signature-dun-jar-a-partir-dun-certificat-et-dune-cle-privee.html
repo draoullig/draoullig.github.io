@@ -18,9 +18,9 @@ author:
   last_name: ''
 ---
 <p>Voici la marche à suivre pour signer un jar si l'on dispose de la clé privée et des certificats Verisign :</p>
-<p>1 - Création d'un pkcs12 :</p>
-<p>openssl pkcs12 -export -in certificat_verisign.cer -inkey cle_privee.key -name alias_nom -out sortie.p12</p>
-<p>2 - Signature du jar à partir du pkcs12 :</p>
-<p>jarsigner -storetype pkcs12 -keystore sortie.p12  <jar à signer>.jar alias_nom</p>
-<p>3 - Pour verifier que c'est bon :</p>
-<p>jarsigner -verify <jar signé>.jar</p>
+<p>1 - Création d'un pkcs12 :<br/>
+&emsp;&emsp;openssl pkcs12 -export -in certificat_verisign.cer -inkey cle_privee.key -name alias_nom -out sortie.p12</p>
+<p>2 - Signature du jar à partir du pkcs12 :<br/>
+&emsp;&emsp;jarsigner -storetype pkcs12 -keystore sortie.p12  <jar à signer>.jar alias_nom</p>
+<p>3 - Pour verifier que c'est bon :<br/>
+&emsp;&emsp;jarsigner -verify <jar signé>.jar</p>

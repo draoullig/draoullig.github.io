@@ -19,9 +19,9 @@ author:
 ---
 <p>La mise en œuvre d'un web service REST peut être facilement réalisée en utilisant la librairie Spring 4 via les annotations en basant sur la norme Servlet 3.0.</p>
 <p>Pour mieux appréhender le protocole REST, il est vivement conseillé de lire la page suivante : <span class="wikiexternallink"><a title="http://www.restapitutorial.com/lessons/restquicktips.html" href="http://www.restapitutorial.com/lessons/restquicktips.html">http://www.restapitutorial.com/lessons/restquicktips.html</a></span></p>
-<h3><span style="text-decoration: underline;">Près-requis</span></h3>
+<h2>Près-requis</span></h2>
 <p>Vous avez une environnement Eclipse fonctionnel avec à minima un jdk 1.6 et un tomcat 7.0.</p>
-<h3 id="HPrE9parationduprojet"><span style="text-decoration: underline;">Préparation du projet</span></h3>
+<h2 id="HPrE9parationduprojet">Préparation du projet</span></h2>
 <p>Pour commencer, je vous invite à récupérer le squelette du projet sur mon github dans un répertoire projet via les commandes :</p>
 <p><em><tt>git clone https://github.com/draoullig/SpringRestWS.git</tt></em></p>
 <p><em><tt>cd SpringRestWS</tt></em></p>
@@ -30,14 +30,14 @@ author:
 <p>Importer le projet sous Eclipse via <em><tt>File&gt;Import&gt;General&gt;Existing Projects into Workspace</tt></em> et sélectionner <em><tt>SpringRestWS</tt></em> dans le répertoire dans lequel vous avez réalisé le <em><tt>git clone</tt></em>, puis finissez l'import.</p>
 <p>Dans la vue "Java EE - Eclipse", ajouter le package <em><tt>fr.gillouard.spring.restws</tt></em> via un click droit sur <em><tt>src&gt;New&gt;Package</tt></em> et valider.</p>
 <p>Les librairies nécessaires au projet sont présentes dans le répertoire <em><tt>/web/WEB-INF/lib</tt></em>.</p>
-<h3 id="HPojo"><span style="text-decoration: underline;">Pojo</span></h3>
+<h2 id="HPojo">Pojo</span></h2>
 <p>Les classes <span class="wikiexternallink"><a title="Pojo" href="http://fr.wikipedia.org/wiki/Plain_Old_Java_Object">Pojo</a></span> vont permettre de gérer le modèle associé au web service.<br />
 Ce tutorial s'appuie sur un modèle simple constitué d'une seul objet client caractérisé par un identifiant, un nom et un prénom.</p>
-<h4 id="HPackage"><span style="text-decoration: underline;">Package</span></h4>
+<h3 id="HPackage">Package</span></h3>
 <p>Création d'un nouveau package <em><tt>pojo</tt></em> sous le package <em><tt>fr.gillouard.spring.restws</tt></em>.<br />
 Pour cela faire un clic droit sur le package <em><tt>fr.gillouard.spring.restws</tt></em> et cliquer sur <em><tt>New/Package</tt></em>.<br />
 Ajouter .<em><tt>pojo</tt></em> à <em><tt>fr.gillouard.spring.restws</tt></em> dans le champs <em><tt>Name</tt></em> de la boite de dialogue <em><tt>New Java Package</tt></em> et cliquer sur <em><tt>Finish</tt></em>.</p>
-<h4 id="HClient"><span style="text-decoration: underline;">Client</span></h4>
+<h3 id="HClient">Client</span></h3>
 <p>Création d'une nouvelle classe dans le package <em><tt>fr.gillouard.spring.restws.pojo</tt></em>. Pour cela faire un clic droit sur le package et cliquer sur <em><tt>New/Class</tt></em>.<br />
 Saisir <em><tt>Client</tt></em> dans le champs <em><tt>Name</tt></em> de la boite de dialogue <em><tt>New Java Class</tt></em> puis cliquer sur <em><tt>Finish</tt></em>.<br />
 Ouvrir le fichier <em><tt>Client.java</tt></em> en double cliquant dessus.</p>
@@ -112,13 +112,13 @@ public void setPrenom(final String prenom) {
  this.prenom = prenom;
 }</pre>
 <p>Cette classe <em><tt>Client</tt></em> regroupe les champs <em><tt>identifiant</tt></em>, <em><tt>nom</tt></em> et <em><tt>prenom</tt></em> avec les accesseurs <em><tt>get</tt></em> et <em><tt>set</tt></em> sur chaque champs et un constructeur pour la création de l'objet.</p>
-<h3 id="HContrF4leur"><span style="text-decoration: underline;">Contrôleur</span></h3>
+<h2 id="HContrF4leur">Contrôleur</span></h2>
 <p>Les classes contrôleur vont permettre d'exposer le web service en REST à partir des annotations Spring.</p>
-<h4 id="HPackage-1"><span style="text-decoration: underline;">Package</span></h4>
+<h3 id="HPackage-1">Package</span></h3>
 <p>Création d'un nouveau package <em><tt>controller</tt></em> sous le package <tt><em><tt>fr.gillouard.spring.restws</tt></em></tt>.<br />
 Pour cela faire un clic droit sur le package <em><tt>fr.gillouard.spring.restws.pojo</tt></em> et cliquer sur <em><tt>New/Package</tt></em>.<br />
 Remplacer <em><tt>pojo</tt></em> par <em><tt>controller</tt></em> dans le champs <em><tt>Name</tt></em> de la boite de dialogue <em><tt>New Java Package</tt></em> et cliquer sur <em><tt>Finish</tt></em>.</p>
-<h4 id="HClientContrF4leur"><span style="text-decoration: underline;">Client Contrôleur</span></h4>
+<h3 id="HClientContrF4leur">Client Contrôleur</span></h3>
 <p>Cette classe va permettre de récupérer les clients via un appel REST de type GET.</p>
 <p>Création d'une nouvelle classe dans le package <em><tt>fr.gillouard.spring.restws.controller</tt></em>. Pour cela faire un clic droit sur le package et cliquer sur <em><tt>New/Class</tt></em>.<br />
 Saisir <em><tt>ClientControleur</tt></em> dans le champs <em><tt>Name</tt></em> de la boite de dialogue <em><tt>New Java Class</tt></em> puis cliquer sur <em><tt>Finish</tt></em>.<br />
@@ -155,13 +155,13 @@ L'annotation <em><tt>@RequestMapping</tt></em> permet d'indiquer le mapping d'ur
 <p>La liste des clients est géré simplement via une <em><tt>ArrayList</tt></em> dans le cas de ce tutorial.<br />
 La fonction <em><tt>getClients</tt></em> est annotée via <em><tt>@RequestMapping</tt></em> pour indiquer que le mapping est réalisé sur l'url <em><tt>/client</tt></em> sur une requête http de format <em><tt>GET</tt></em>.<br />
 Cette fonction retourne tous les clients de la liste.</p>
-<h3 id="HSpringjavaconfiguration"><span style="text-decoration: underline;">Spring java configuration</span></h3>
+<h2 id="HSpringjavaconfiguration">Spring java configuration</span></h2>
 <p>Désormais <em><tt>Spring</tt></em> permet de réaliser toute sa configuration sans utiliser un ligne de xml. Dans cette section, la configuration du service web REST va être décrite.</p>
-<h4 id="HPackage-2"><span style="text-decoration: underline;">Package</span></h4>
+<h3 id="HPackage-2">Package</span></h3>
 <p>Création d'un nouveau package <em><tt>config</tt></em> sous le package <tt><tt><em><tt>fr.gillouard.spring</tt></em></tt>.restws</tt>.<br />
 Pour cela faire un clic droit sur le package <em><tt><tt>fr.gillouard.spring</tt>.restws.pojo </tt></em>et cliquer sur <em><tt>New/Package</tt></em>.<br />
 Remplacer <em><tt>pojo</tt></em> par <em><tt>config</tt></em> dans le champs <em><tt>Name</tt></em> de la boite de dialogue <em><tt>New Java Package</tt></em> et cliquer sur <em><tt>Finish</tt></em>.</p>
-<h4 id="HCodelabRestCOnfig"><span style="text-decoration: underline;">SpringConfig</span></h4>
+<h3 id="HCodelabRestCOnfig">SpringConfig</span></h3>
 <p>Cette classe permet de créer l'injection du contexte <em><tt>Spring</tt></em> du projet.</p>
 <p>Assurez vous que les librairies de votre serveur d’exécution (Ici Tomcat 7.0 à minima) soient bien dans le <em><tt>classpath</tt></em> du projet.</p>
 <p>Création d'une nouvelle classe dans le package <em><tt><tt>fr.gillouard.spring</tt>.restws.config</tt></em>. Pour cela faire un clic droit sur le package et cliquer sur <em><tt>New/Class</tt></em>.<br />
@@ -186,7 +186,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 <p>L'annotation <em><tt>@Configuration</tt></em> permet de préciser que cette classe réalise le chargement du contexte <em><tt>Spring</tt></em> et le met à disposition.<br />
 L'annotation <em><tt>@ComponentScan("fr.gillouard.spring.restws")</tt></em> permet d'indiquer que la création du contexte est réalisé en scannant tous les classes de la hiérarchie de package précisé. Ainsi les annotations de la classe <em><tt>ClientController</tt></em> sont analysées et traitées.<br />
 La classe de configuration ne contient qu'un constructeur parce que tout le traitement est effectué par les annotations.</p>
-<h4 id="HWebAppInitializer"><span style="text-decoration: underline;">WebAppInitializer</span></h4>
+<h3 id="HWebAppInitializer">WebAppInitializer</span></h3>
 <p>Cette classe va être instanciée au démarrage du conteneur (Norme Servlet 3) et charge la configuration du contexte pour le serveur d'exécution.</p>
 <p>Création d'une nouvelle classe dans le package <em><tt>fr.gillouard.spring.restws.config</tt></em>. Pour cela faire un clic droit sur le package et cliquer sur <em><tt>New/Class</tt></em>.<br />
 Saisir <em><tt>WebAppInitializer</tt></em> dans le champs <em><tt>Name</tt></em> de la boite de dialogue <em><tt>New Java Class</tt></em> puis cliquer sur <em><tt>Finish</tt></em>.<br />
@@ -234,7 +234,7 @@ public void onStartup(final ServletContext servletContext)
 <p>La classe implémente la méthode <em><tt>onStartup</tt></em> définit de la norme Servlet 3 et qui est exécutée au démarrage du serveur.<br />
 La méthode crée le contexte <em><tt>Spring</tt></em> en utilisant les annotations via la classe <em><tt>AnnotationConfigWebApplicationContext</tt></em> et en chargeant la classe <em><tt>SpringConfig</tt></em>.<br />
 Le contexte <em><tt>Spring</tt></em> est mis à disposition du serveur d'exécution et toutes les requêtes entrantes sur le serveur sont traités via les mécanismes <em><tt>Spring</tt></em>.</p>
-<h3 id="HRuntime"><span style="text-decoration: underline;">Runtime</span></h3>
+<h2 id="HRuntime">Runtime</span></h2>
 <p>Pour tester le web service, il est nécessaire de déployer le projet <em><tt>SpringRestWS</tt></em> sous un <em><tt>Tomcat v7.0</tt></em>.<br />
 Pour cela dans la vue <em><tt>Server</tt></em>, effectuer un clic droit sur le serveur cible et cliquer sur <em><tt>Add and Remove</tt></em>.<br />
 Dans la boite de dialogue <em><tt>Add and Remove</tt></em>, pousser le projet <em><tt>SpringRestWS</tt></em> dans la partie <em><tt>Configured</tt></em> et cliquer sur <em><tt>Finish</tt></em>.<br />
@@ -258,10 +258,10 @@ janv. 22, 2015 11:02:17 AM org.springframework.web.context.ContextLoader initWeb
 INFOS: Root WebApplicationContext: initialization completed in 955 ms</pre>
 <p>Pour tester le web service, ouvrer un navigateur et saisir l'url suivante : <a title="http://localhost:8080/SpringRestWS/client" href="http://localhost:8080/SpringRestWS/client"><em><tt>http://localhost:8080/SpringRestWS/client</tt></em></a> en changeant le port en fonction de la configuration de votre serveur Tomcat.</p>
 <p>Vous devriez obtenir ceci :</p>
-<p><a href="http://gillouard.fr/wp-content/uploads/2015/01/Capture-d’écran-2015-01-22-à-11.08.57.png"><img class="alignnone wp-image-531 size-medium" src="{{ site.baseurl }}/assets/Capture-d&#8217;e&#769;cran-2015-01-22-a&#768;-11.08.57-300x68.png" alt="appel_web_service_1" width="300" height="68" /></a></p>
+<p><a href="{{ site.baseurl }}/assets/appel_restws.png"><img class="alignnone wp-image-531 size-medium" src="{{ site.baseurl }}/assets/appel_restws.png" alt="appel_web_service_1" width="300" height="68" /></a></p>
 <p>La liste des clients est vide côté service, ce qui explique ce résultat.</p>
 <p>Dans la vue <em><tt>Server</tt></em>, effectuer à nouveau un clic droit sur le serveur cible et cliquer sur <em><tt>Stop</tt></em>.</p>
-<h3 id="HData"><span style="text-decoration: underline;">Data</span></h3>
+<h3 id="HData">Data</span></h3>
 <p>Nous allons ajoutons des clients au service pour obtenir un résultat plus concluant.</p>
 <p>Pour cela, ouvrir le fichier <em><tt>ClientControleur.java</tt></em> en double cliquant dessus.</p>
 <p>Ajouter le code suivant dans le corps de la classe sous la ligne <em><tt>private final List&lt;Client&gt; clients = new ArrayList&lt;Client&gt;();</tt></em> :</p>
@@ -276,9 +276,9 @@ public ClientControleur() {
 <p>Ce code ajoute un constructeur a la classe dans lequel on ajoute des clients à la liste.</p>
 <p>Dans la vue <em><tt>Server</tt></em>, effectuer à nouveau un clic droit sur le serveur cible et cliquer sur <em><tt>Debug</tt></em>.</p>
 <p>Effectuer un rafraîchissement dans votre navigateur sur la page précédente et vous devriez obtenir ceci :</p>
-<p><a href="http://gillouard.fr/wp-content/uploads/2015/01/Capture-d’écran-2015-01-22-à-11.14.47.png"><img class="alignnone wp-image-533 size-large" src="{{ site.baseurl }}/assets/Capture-d&#8217;e&#769;cran-2015-01-22-a&#768;-11.14.47-1024x63.png" alt="" width="590" height="36" /></a></p>
+<p><a href="{{ site.baseurl }}/assets/appel_restws_clients.png"><img class="alignnone wp-image-533 size-large" src="{{ site.baseurl }}/assets/appel_restws_clients.png" alt="" width="590" height="36" /></a></p>
 <p>Dans la vue <em><tt>Server</tt></em>, effectuer à nouveau un clic droit sur le serveur cible et cliquer sur <em><tt>Stop</tt></em>.</p>
-<h3 id="HConclusion"><span style="text-decoration: underline;">Conclusion</span></h3>
+<h2 id="HConclusion">Conclusion</span></h2>
 <p>Ce tutorial a permis d'expliquer la mise en œuvre d'un web service REST en utilisant <em><tt>Spring</tt></em> uniquement sur la commande <em><tt>GET</tt></em>.</p>
-<h3><span style="text-decoration: underline;">Solution</span></h3>
+<h2>Solution</span></h2>
 <p>L'ensemble des sources de ce tutorial est disponible sous le tag <em><tt>step1</tt></em>.</p>

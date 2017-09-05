@@ -1,0 +1,64 @@
+<p>Voici les étapes de base pour envoyer des notifications Push pour vos applications via le Service d'Apple Push Notification (APN):</p>
+<ol>
+<li>Communiquer avec le APN en utilisant le certificat SSL que vous avez créé plus tôt.</li>
+<li>Construire la structure JSON pour le message que vous voulez envoyer.</li>
+<li>Envoyer le push notification contenant la structure à l'APN.</li>
+</ol>
+<p>La communication entre l'application et serveur Apple s'effectue via une communication sécurisée SLL via une socket TCP. La structure JSON est envoyé sous le format binaire. La capture d'un message de notification Push ressemble à :</p>
+<p><a href="{{ site.baseurl }}/assets/Figure-27.jpg"><img src="{{ site.baseurl }}/assets/Figure-27-300x63.jpg" alt="" title="Figure - 25" width="300" height="63" class="alignnone size-medium wp-image-333" /></a></p>
+<p>Exemple de structure JSON (maximum 256 octets) :
+<pre class="lang:java decode:true">
+{
+    &quot;Aps&quot;: {
+        «Alerte»: «Vous avez un nouveau message!&quot; ,
+        «Badge»: 5,
+        &quot;Sonore&quot;: &quot;beep.wav&quot;},
+     &quot;Acme1&quot;: &quot;bar&quot;,
+     &quot;Acme2&quot;: 42
+}
+</pre></p>
+<p>La partie serveur sera développé en Java en s'appuyant sur la librairie JavaPNS (http://code.google.com/p/javapns/).</p>
+<p>Cette bibliothèque java permet aux développeurs de pousser des notifications aux appareils iOS (iPhone, iPod, iPhone, etc) par le biais du service de notification Push d'Apple en proposant un ensemble de classes de complexité croissante.</p>
+<ol>
+<li>Sous Eclipse, créez un projet Java via la commande File/New/Others...</li>
+<li>Dans la nouvelle boite de dialogue sélectionner Java Project.</li>
+<p><a href="{{ site.baseurl }}/assets/Figure-28.png"><img src="{{ site.baseurl }}/assets/Figure-28-300x183.png" alt="" width="300" height="183" class="alignnone size-medium wp-image-335" /></a></p>
+<li>Cliquer sur Next.</li>
+<li>Saisir PushAlerte dans Project name puis cliquer sur Finish.</li>
+<li>Clique droit sur PushAlerte puis New/Folder.</li>
+<p><a href="{{ site.baseurl }}/assets/Figure-29.png"><img src="{{ site.baseurl }}/assets/Figure-29-300x167.png" alt="" width="300" height="167" class="alignnone size-medium wp-image-336" /></a></p>
+<li>Saisir lib dans le champ Folder name.</li>
+<p><a href="{{ site.baseurl }}/assets/Figure-30.png"><img src="{{ site.baseurl }}/assets/Figure-30-274x300.png" alt="" width="274" height="300" class="alignnone size-medium wp-image-337" /></a></p>
+<li>Cliquer sur Finish.</li>
+<li>Copier les librairies suivantes JavaPNS_2.2.jar, bcprov-jdk15on-147.jar log4j-1.2.17.jar dans le répertoire lib.</li>
+<p><a href="{{ site.baseurl }}/assets/Figure-31.png"><img src="{{ site.baseurl }}/assets/Figure-31.png" alt="" width="271" height="159" class="alignnone size-full wp-image-338" /></a></p>
+<li>Sélectionner ces trois librairies, puis clique droit Build Path/Add to Build Path.</li>
+<p><a href="{{ site.baseurl }}/assets/Figure-32.png"><img src="{{ site.baseurl }}/assets/Figure-32-300x165.png" alt="" width="300" height="165" class="alignnone size-medium wp-image-339" /></a></p>
+<li>Copier le fichier pushAlerte.p12 généré précédement dans le répertoire racine du projet PushAlerte. Rafraîchir le projet sous Eclipse.</li>
+<p><a href="{{ site.baseurl }}/assets/Figure-33.png"><img src="{{ site.baseurl }}/assets/Figure-33.png" alt="" width="235" height="189" class="alignnone size-full wp-image-340" /></a></p>
+<li>Clique droit sur src, puis New/Package.</li>
+<p><a href="{{ site.baseurl }}/assets/Figure-34.png"><img src="{{ site.baseurl }}/assets/Figure-34-300x64.png" alt="" title="Figure - 31" width="300" height="64" class="alignnone size-medium wp-image-341" /></a></p>
+<li>Saisir com.fortuneo.test.push dans Name dans la nouvelle fenêtre, puis Finish.</li>
+<p><a href="{{ site.baseurl }}/assets/Figure-35.png"><img src="{{ site.baseurl }}/assets/Figure-35-300x286.png" alt="" title="Figure - 32" width="300" height="286" class="alignnone size-medium wp-image-342" /></a></p>
+<li>Clique droit sur com.fortuneo.test.push, puis New/Class.</li>
+<p><a href="{{ site.baseurl }}/assets/Figure-36.png"><img src="{{ site.baseurl }}/assets/Figure-36-300x61.png" alt="" title="Figure - 33" width="300" height="61" class="alignnone size-medium wp-image-343" /></a></p>
+<li>Saisir PushAlerte dans Name et cocher public static void main(String[] ars-gs)  dans la nouvelle fenêtre, puis Finish.</li>
+<p><a href="{{ site.baseurl }}/assets/Figure-37.png"><img src="{{ site.baseurl }}/assets/Figure-37-249x300.png" alt="" title="Figure - 34" width="249" height="300" class="alignnone size-medium wp-image-344" /></a></p>
+<li>Ouvrir la classe PushAlerte et ajouter la ligne import javapns.Push ; et sauvegarder.</li>
+<p><a href="{{ site.baseurl }}/assets/Figure-38.png"><img src="{{ site.baseurl }}/assets/Figure-38-300x189.png" alt="" title="Figure - 35" width="300" height="189" class="alignnone size-medium wp-image-345" /></a></p>
+<li>Ajouter la ligne ci-dessous à la classe PushAlerte et sauvegarder. Cette ligne permet d'envoyer une notification qui ouvrira une alerte sous le terminal avec le message HelloWorld !. La fonction alert prend en paramètres le message, le certificat P12 généré précédemment avec le mot de passe associé. Il faut également renseigner l'identifiant du média qui était affiché dans la console de la Debug Area sous XCode.</li>
+<p>
+<pre class="lang:java decode:true">
+try {
+ Push.alert(&quot;HelloWorld !&quot;, &quot;pushAlerte.p12&quot;, &quot;motdepasse&quot;, false,
+&quot;56e2a9c5b4c4ffa9711c208c5949a8d73a1a00144ad0d81739b2c6e739bd7cec&quot;);
+} catch (CommunicationException e) {
+ // TODO Auto-generated catch block
+ e.printStackTrace();
+} catch (KeystoreException e) {
+ // TODO Auto-generated catch block
+ e.printStackTrace();
+}
+</pre>
+<a href="{{ site.baseurl }}/assets/Figure-39.png"><img src="{{ site.baseurl }}/assets/Figure-39-300x88.png" alt="" title="Figure - 42" width="300" height="88" class="alignnone size-medium wp-image-346" /></a>
+</ol>

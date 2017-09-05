@@ -1,0 +1,46 @@
+<ol>
+<li>Dans Xcode, créer un projet Single View Application. Cliquer sur Next.</li>
+<p><a href="{{ site.baseurl }}/assets/Figure-17.png"><img src="{{ site.baseurl }}/assets/Figure-17-300x202.png" alt="" width="300" height="202" class="alignnone size-medium wp-image-313" /></a></p>
+<li>Saisir TestAlerte dans Product Name. Dans Company Identifier, saisir la chaine précédemment utilisée pour la création de l'App ID (com.fortuneo dans notre cas). Décocher la case Use Storyboards. Cliquer sur Next.</li>
+<p><a href="{{ site.baseurl }}/assets/Figure-18.png"><img src="{{ site.baseurl }}/assets/Figure-18-300x200.png" alt="" width="300" height="200" class="alignnone size-medium wp-image-314" /></a></p>
+<li>Sélectionner le répertoire de destination et cliquer sur Create.</li>
+<li>Dans la vue Project/TestAlerte, modifier le champs IOS Deployment Target si nécessaire pour être compatible avec votre terminal.</li>
+<p><a href="{{ site.baseurl }}/assets/Figure-19.png"><img src="{{ site.baseurl }}/assets/Figure-19-300x98.png" alt="" width="300" height="98" class="alignnone size-medium wp-image-315" /></a></p>
+<li>Affecter aux propriétés Code Signing Identity dans Build Settings, le certificat de provissionning créé ultérieurement.</li>
+<p><a href="{{ site.baseurl }}/assets/Figure-20.png"><img src="{{ site.baseurl }}/assets/Figure-20-300x17.png" alt="" width="300" height="17" class="alignnone size-medium wp-image-316" /></a></p>
+<li>Ajouter le code ci-dessous dans la fonction didFinishLaunchingWithOptions du fichier AppDelegate.m avant la ligne self.window.rootViewController = self.viewController ;. Ce code permet d'indiquer que l'application gérera les notifications sonore, message et badge. Il sera possible de les paramétrer via les réglages du média.</li>
+<p>
+<pre class="lang:java decode:true">
+NSLog(@&quot;Registering for push notifications...&quot;);
+[[UIApplication sharedApplication]
+registerForRemoteNotificationTypes:
+(UIRemoteNotificationTypeAlert |
+UIRemoteNotificationTypeBadge |
+UIRemoteNotificationTypeSound)];
+</pre></p>
+<li>Ajouter les fonctions ci-dessous au fichier AppDelegate.m. Ces méthodes permettent d'abonner ou désabonner le média au service APN. Cela se traduit par la récupération d'un token qui sera à fournir lors d'un appel au service de Push Apple pour que le terminal puisse être notifié.</li>
+<pre class="lang:java decode:true">
+- (void)application:(UIApplication *)app
+didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    NSString *str = [NSString
+        stringWithFormat:@&quot;Device Token=%@&quot;,deviceToken];
+    NSLog(str);
+}
+- (void)application:(UIApplication *)app
+didFailToRegisterForRemoteNotificationsWithError:(NSError *)err {
+    NSString *str = [NSString stringWithFormat: @&quot;Error: %@&quot;, err];
+    NSLog(str);
+}
+- (void)application:(UIApplication *)application
+didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    for (id key in userInfo) {
+        NSLog(@&quot;key: %@, value: %@&quot;, key, [userInfo objectForKey:key]);
+    }
+}
+</pre></p>
+<li>Sauvegarder le fichier.</li>
+<li>Exécuter ce projet sur un Iphone. La gestion des notifications ne fonctionne pas sur le simulateur.Normalement dans la console Debug, le token qui servira pour l'envoi de push est affiché.</li>
+<p><a href="{{ site.baseurl }}/assets/Figure-21.png"><img src="{{ site.baseurl }}/assets/Figure-21-300x115.png" alt="" width="300" height="115" class="alignnone size-medium wp-image-317" /></a></p>
+<li>Si vous regardez sur votre terminal, normalement le code qui a été ajouté à l'application permet de gérer les notifications dans les réglages du téléphone.</li>
+<p><a href="{{ site.baseurl }}/assets/Figure-22.png"><img src="{{ site.baseurl }}/assets/Figure-22-300x150.png" alt="" width="300" height="150" class="alignnone size-medium wp-image-318" /></a>
+</ol>

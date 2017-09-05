@@ -20,19 +20,23 @@ author:
 <p>La fonction suivante permet de créer un tableau d'entiers distribué aléatoirement.<br />
 Les entiers sont issus d'une suite, par exemple 1-50.<br />
 Cette fonction est pratique pour les jeux de carte, lotos...</p>
-<p>private int[] getTabRandom(final int max) {</p>
-<p style="padding-left: 30px;">final Random random = new Random();<br />
-int[] tabelems = new int[max];<br />
-int[] tab = new int[max];<br />
-for(int i=0; i&lt;max; i++) {</p>
-<p style="padding-left: 60px;">tabelems[i] = i;</p>
-<p style="padding-left: 30px;">}<br />
-int variation = max;<br />
-for(int j=0; j &lt; max; j++){</p>
-<p style="padding-left: 60px;">int indice = random.nextInt(variation);<br />
-tab[j] = tabelems[indice];<br />
-tabelems[indice] = tabelems[variation-1];<br />
-variation--;</p>
-<p style="padding-left: 30px;">}</p>
-<p style="padding-left: 30px;">return tab;</p>
-<p>}</p>
+<pre class="lang:java decode:true">
+private int[] getTabRandom(final int max) {
+  
+  final Random random = new Random();
+  int[] tabelems = new int[max];
+  int[] tab = new int[max];
+  for(int i=0; i&lt;max; i++) {
+    tabelems[i] = i;
+  }
+  
+  int variation = max;
+  for(int j=0; j &lt; max; j++){
+    int indice = random.nextInt(variation);
+    tab[j] = tabelems[indice];
+    tabelems[indice] = tabelems[variation-1];
+    variation--;
+  }
+  return tab;
+}
+</pre>

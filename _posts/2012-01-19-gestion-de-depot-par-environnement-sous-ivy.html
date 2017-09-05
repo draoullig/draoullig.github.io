@@ -20,34 +20,47 @@ author:
 <p><a href="http://ant.apache.org/ivy/">Apache Ivy™</a> est un gestionnaire de dépendance qui se concentre sur la flexibilité et la simplicité.</p>
 <p>L'idée est de configurer des dépôts différents en fonction des environnements (Développement, recette, production...). Cela doit permettre, par exemple en développement, de réaliser des publications temporaires pour une équipe projet dans un dépôt spécifique tout en gardant la stabilités des dépôts officiels pour ne pas impacter les autres équipes projet.</p>
 <p>Commençons par définir une variable d'environnements, qui sera valorisée par le script ant appelant dans le fichier ivysetting.xml :</p>
-<p>&lt;ivysettings&gt;</p>
-<p style="padding-left: 30px;">&lt;property name="ivy.env" value="-${environnement}" /&gt;</p>
-<p>Supposons que nous avons les resolvers suivants :</p>
-<p>&lt;resolvers&gt;</p>
-<p style="padding-left: 30px;">&lt;url name="sandbox"&gt;...&lt;/url&gt;</p>
-<p style="padding-left: 30px;">&lt;url name="local"&gt;...&lt;/url&gt;</p>
-<p style="padding-left: 30px;">&lt;url name="public"&gt;...&lt;/url&gt;</p>
-<p style="padding-left: 30px;">&lt;url name="nexus"&gt;...&lt;/url&gt;</p>
-<p>Nous allons définir des chain permettant de gérer plusieurs environnements :</p>
-<p style="padding-left: 30px;">&lt;!-- chain resolver commun --&gt;<br />
-&lt;chain name="resolver-commun"&gt;</p>
-<p style="padding-left: 60px;">&lt;resolver ref="local" /&gt;<br />
-&lt;resolver ref="public" /&gt;</p>
-<p style="padding-left: 30px;">&lt;/chain&gt;</p>
-<p style="padding-left: 30px;">&lt;!-- chain resolver developpement --&gt;<br />
-&lt;chain name="resolver-developpement"&gt;</p>
-<p style="padding-left: 60px;">&lt;resolver ref="sandbox" /&gt;</p>
-<p style="padding-left: 60px;">&lt;resolver ref="resolver-commun" /&gt;</p>
-<p style="padding-left: 30px;">&lt;/chain&gt;</p>
-<p style="padding-left: 30px;">&lt;!-- chain resolver recette --&gt;<br />
-&lt;chain name="resolver-recette"&gt;</p>
-<p style="padding-left: 60px;">&lt;resolver ref="resolver-commun" /&gt;</p>
-<p style="padding-left: 30px;">&lt;/chain&gt;</p>
-<p style="padding-left: 30px;">&lt;!-- chain resolver production --&gt;<br />
-&lt;chain name="resolver-production"&gt;</p>
-<p style="padding-left: 60px;">&lt;resolver ref="resolver-commun" /&gt;</p>
-<p style="padding-left: 60px;">&lt;resolver ref="nexus" /&gt;</p>
-<p style="padding-left: 30px;">&lt;/chain&gt;</p>
-<p>Le routage se fera via la ligne :</p>
-<p>&lt;settings defaultResolver="resolver${ivy.env}" /&gt;</p>
-<p>Ainsi en fonction de l'environnement, la liste des dépôts disponibles est différente.</p>
+<pre class="lang:java decode:true">
+&lt;ivysettings&gt;
+&lt;property name="ivy.env" value="-${environnement}" /&gt;
+</pre>
+
+Supposons que nous avons les resolvers suivants :
+<pre class="lang:java decode:true">
+&lt;resolvers&gt;
+   &lt;url name="sandbox"&gt;...&lt;/url&gt;
+   &lt;url name="local"&gt;...&lt;/url&gt;
+   &lt;url name="public"&gt;...&lt;/url&gt;
+   &lt;url name="nexus"&gt;...&lt;/url&gt;
+</pre>
+Nous allons définir des chain permettant de gérer plusieurs environnements :
+<pre class="lang:java decode:true">
+&lt;!-- chain resolver commun --&gt;
+&lt;chain name="resolver-commun"&gt;
+  &lt;resolver ref="local" /&gt;
+  &lt;resolver ref="public" /&gt;
+&lt;/chain&gt;
+   
+&lt;!-- chain resolver developpement --&gt;
+&lt;chain name="resolver-developpement"&gt;
+  &lt;resolver ref="sandbox" /&gt;
+  &lt;resolver ref="resolver-commun" /&gt;
+&lt;/chain&gt;
+
+&lt;!-- chain resolver recette --&gt;
+&lt;chain name="resolver-recette"&gt;
+  &lt;resolver ref="resolver-commun" /&gt;
+&lt;/chain&gt;
+   
+&lt;!-- chain resolver production --&gt;
+&lt;chain name="resolver-production"&gt;
+  &lt;resolver ref="resolver-commun" /&gt;
+  &lt;resolver ref="nexus" /&gt;
+&lt;/chain&gt;
+</pre>   
+Le routage se fera via la ligne :
+<pre class="lang:java decode:true">
+&lt;settings defaultResolver="resolver${ivy.env}" /&gt;
+</pre>
+Ainsi en fonction de l'environnement, la liste des dépôts disponibles est différente.
+

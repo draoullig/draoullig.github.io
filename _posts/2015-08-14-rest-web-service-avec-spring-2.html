@@ -18,9 +18,9 @@ author:
   last_name: ''
 ---
 <p>La mise en œuvre d'un web service REST peut être facilement réalisée en utilisant la librairie Spring 4 via les annotations en basant sur la norme Servlet 3.0.</p>
-<h2><span style="text-decoration: underline;">Près-requis</span></h2>
-<p>Vous avez une environnement Eclipse fonctionnel avec à minima un jdk 1.6 et un tomcat 7.0.<br /> Vous avez réalisé et réussi les tutoriaux <a href="http://gillouard.fr/?p=503">Rest Web Service Get avec Spring</a> et <a href="http://gillouard.fr/?p=503">Rest Web Service Get avec Spring</a>.</p>
-<h3 id="HPrE9parationduprojet"><span style="text-decoration: underline;">Préparation du projet</span></h3>
+<h2>Près-requis</span></h2>
+<p>Vous avez une environnement Eclipse fonctionnel avec à minima un jdk 1.6 et un tomcat 7.0.<br /> Vous avez réalisé et réussi les tutoriaux <a href="{{ site.baseurl }}{% post_url 2015-01-27-rest-web-service-get-avec-spring %}">Rest Web Service Get avec Spring</a> et <a href="{{ site.baseurl }}{% post_url 2015-04-30-rest-client-get-avec-spring %}">Rest Client Get avec Spring</a>.</p>
+<h2 id="HPrE9parationduprojet">Préparation du projet</span></h2>
 <p>On va réutiliser les projets <em><tt>SpringRestWS</tt></em> et <em><tt>SpringRestClient</tt></em> en les complétant dans ce tutorial.<br /> Si vous n'avez plus ces projets opérationnels, vous pouvez les récupérer comme suit :</p>
 <ul>
 <ul>
@@ -33,9 +33,9 @@ author:
 </ul>
 </ul>
 <p>Importer les projet sous Eclipse via <em><tt>File&gt;Import&gt;General&gt;Existing Projects into Workspace</tt></em> et sélectionner <em><tt>SpringRestWS</tt></em> dans le répertoire dans lequel vous avez réalisé le <em><tt>git clone</tt></em>, puis finissez l'import.<br /> Refaire la même opération pour le projet <em><tt>SpringRestClient</tt></em>.</p>
-<h3 id="HSpringRestWS"><span style="text-decoration: underline;">SpringRestWS</span></h3>
+<h2 id="HSpringRestWS">SpringRestWS</span></h2>
 <p>On va ajouter certaines fonctionnalités au contrôleur du service pour proposer l'ajout, la modification, la suppression et la consultation d'un client.</p>
-<h3 id="HClient.java"><span style="text-decoration: underline;">Client.java</span></h3>
+<h3 id="HClient.java">Client.java</span></h3>
 <p>Désormais, le web service va recevoir des données pour la gestion des clients. Ces données sont au format json, dans ce cas il faut ajouter un constructeur par défaut à la classe <em><tt>Client</tt></em> pour que le mapping réalisé via <em><tt>Jackson</tt></em> se déroule correctement.</p>
 <p>Ouvrir le fichier <em><tt>Client.java</tt></em> du projet <em><tt>SpringRestWS</tt></em> en double cliquant dessus.<br /> Ajouter le constructeur suivant à la classe <em><tt>Client</tt></em> au-dessous du constructeur existant et enregistrer :</p>
 <pre class="lang:java decode:true " title="Constructeur par defaut"> /**
@@ -59,7 +59,7 @@ author:
   return false;
  }
 </pre>
-<h3 id="HClientControleur.java"><span style="text-decoration: underline;">ClientControleur.java</span></h3>
+<h3 id="HClientControleur.java">ClientControleur.java</span></h3>
 <p>On va ajouter les méthodes permettant de réaliser un ajout (add), une mise à jour (update), une suppression (delete) et une consultation à la classe.</p>
 <p>Ouvrir le fichier <em><tt>ClientControleur.java</tt></em> en double cliquant dessus.</p>
 <p>Remplacer les <em><tt>import</tt></em> existants par les suivants :</p>
@@ -117,9 +117,9 @@ public Client getClient(
  return clients.get(clients.indexOf(new Client(id, "", "")));
 }</pre>
 <p>La fonction <em><tt>addClient</tt></em> est définie côté REST via la méthode <em><tt>POST</tt></em>. Cette fonction attend un client qui se trouve dans le corps de la requête via l'annotation <em><tt>@RequestBody</tt></em>. Ce client est simplement ajouté à la liste et la fonction renvoie le résultat <em><tt>boolean</tt></em> de l'ajout.<br /> La fonction <em><tt>updateClient</tt></em> est définie côté REST via la méthode <em><tt>PUT</tt></em>. Cette fonction met à jour les informations du client dans la liste en considérant que l'identifiant du client n'a pas changé et en se basant sur la fonction <em><tt>equals</tt></em> que nous avons surchargé dans la classe <em><tt>Client</tt></em>. Elle retourne le client avant sa mise à jour.<br /> La fonction <em><tt>deleteClient</tt></em> est définie côté REST via la méthode <em><tt>DELETE</tt></em>. Cette fonction attend l'id (identifiant) du client à supprimer dans l'url. Ceci est précisé via les annotations <em><tt>@RequestMapping(value =</tt></em> et <em><tt>@PathVariable</tt></em>. Le client est simplement retiré de la liste.<br /> La fonction <em><tt>getClient</tt></em> se différencie de la fonction <em><tt>getClients</tt></em> par un mapping d'url différent défini dans l'annotation. Elle récupère l'id du client dans l'url comme la fonction <em><tt>deleteClient</tt></em> précédente. Elle renvoie le premier client de la liste en se basant sur la fonction <em><tt>equals</tt></em> de la classe <em><tt>Client</tt></em> pour sa recherche.</p>
-<h3 id="HSpringRestClient"><span style="text-decoration: underline;">SpringRestClient</span></h3>
+<h2 id="HSpringRestClient">SpringRestClient</span></h2>
 <p>On va mettre à jour la classe <em><tt>RestClient</tt></em> pour qu'il utilise les nouvelles fonctionnalités proposés par le service REST.</p>
-<h3 id="HRestClient.java"><span style="text-decoration: underline;">RestClient.java</span></h3>
+<h3 id="HRestClient.java">RestClient.java</span></h3>
 <p>Ouvrir le fichier <em><tt>RestClient.java</tt></em> du projet <em><tt>SpringRestClient</tt></em> en double cliquant dessus.</p>
 <p>Ajouter le nouvel <em><tt>import</tt></em> suivant à ceux déjà présent dans la classe :</p>
 <pre class="lang:java decode:true " title="Import RestClient">import org.springframework.http.HttpEntity;</pre>
@@ -163,8 +163,8 @@ public Client getClient(
  new RestTemplate().delete(new StringBuilder(url).append("/{id}")
    .toString(), cli4.getIdentifiant());</pre>
 <p>L'url du service est variabilisé pour en faciliter sa mise à jour.<br /> Dans le cas de l'ajout, on utilise la méthode <em><tt>postForObject</tt></em> dans laquelle on précise l'url de destination, le client à ajouter ainsi que le type de retour attendu. On teste ce <em><tt>boolean</tt></em> pour afficher le message.<br /> Dans le cas de la modification, on utilise la méthodes <em><tt>exchange</tt></em> dans laquelle on précise l'url de destination, le client à modifier ainsi que le type de retour attendu. On teste le prénom du client retourné qui doit correspondre à Gaëtan et non à Amélie. La modification se base sur un identifiant inchangé.<br /> Dans le cas de la consultation du client, on précise l'identifiant du client et le mapping sur l'url <em><tt>/{id}</tt></em> s'effectue automatiquement.<br /> Dans le cas de la suppression, on précise l'identifiant du client à supprimer et le mapping sur l'url <em><tt>/{id}</tt></em> s'effectue automatiquement.</p>
-<h3 id="HRuntime"><span style="text-decoration: underline;">Runtime</span></h3>
-<h3 id="HSpringRestWS"><span style="text-decoration: underline;">SpringRestWS</span></h3>
+<h2 id="HRuntime">Runtime</span></h2>
+<h3 id="HSpringRestWS">SpringRestWS</span></h3>
 <p>Pour tester le web service, il est nécessaire de déployer le projet <em><tt>SpringRestWS</tt></em> sous un <em><tt>Tomcat v7.0</tt></em>.<br /> Pour cela dans la vue <em><tt>Server</tt></em>, effectuer un clic droit sur le serveur cible et cliquer sur <em><tt>Add and Remove</tt></em>.<br /> Dans la boite de dialogue <em><tt>Add and Remove</tt></em>, pousser le projet <em><tt>SpringRestWS</tt></em> dans la partie <em><tt>Configured</tt></em> et cliquer sur <em><tt>Finish</tt></em>.<br /> Dans la vue <em><tt>Server</tt></em>, effectuer à nouveau un clic droit sur le serveur cible et cliquer sur <em><tt>Debug</tt></em>.<br /> La vue <em><tt>Console</tt></em> devrait ressembler à ceci :</p>
 <pre class="lang:sh decode:true " title="Tomcat Console">INFOS: Starting Servlet Engine: Apache Tomcat/7.0.57
 août 14, 2015 8:32:39 AM org.apache.catalina.core.ApplicationContext log
@@ -204,7 +204,7 @@ INFOS: Starting ProtocolHandler ["ajp-bio-8009"]
 août 14, 2015 8:32:40 AM org.apache.catalina.startup.Catalina start
 INFOS: Server startup in 2083 ms
 </pre>
-<h3 id="HSpringRestWS"><span style="text-decoration: underline;">SpringRestWS</span></h3>
+<h3 id="HSpringRestWS">SpringRestWS</span></h3>
 <p>Effectuer un clic droit sur la classe <em><tt>RestClient</tt></em> dans la vue <em><tt>Project Explorer</tt></em>, puis <em><tt>Debug As/Java Application</tt></em>.</p>
 <p>La vue <em><tt>Console</tt></em> devrait ressembler à ceci :</p>
 <pre class="lang:sh decode:true " title="Resultat appel client">Taille de la liste : 3
@@ -215,11 +215,11 @@ Nouveau client : Lefebvre Gaetan ajouté
 L'ancien prenom avant la mise a jour etait : Gaetan
 Le client 4 s'appelle désormais : Lefebvre Amelie
 Suppression du client 4 !</pre>
-<h3 id="HGestiondeserreurs"><span style="text-decoration: underline;">Gestion des erreurs</span></h3>
+<h2 id="HGestiondeserreurs">Gestion des erreurs</span></h2>
 <p><em><tt>Spring</tt></em> propose un mécanisme côté service REST qui permet de centraliser facilement l'interception et la gestion des erreurs au niveau des contrôleurs.<br /> Penser à arrêter votre serveur avant de modifier le code en effectuant un clic droit sur le serveur cible et en cliquant sur <em><tt>Stop</tt></em>.</p>
-<h3 id="HPackage"><span style="text-decoration: underline;">Package</span></h3>
+<h3 id="HPackage">Package</span></h3>
 <p>Création d'un nouveau package <em><tt>exception</tt></em> sous le package <em><tt>fr.gillouard.spring.restws</tt></em> dans le projet <em><tt>SpringRestWS</tt></em>.<br /> Pour cela faire un clic droit sur le package <em><tt>fr.gillouard.spring.restws.pojo</tt></em> et cliquer sur  <em><tt>New/Package</tt></em>.<br /> Remplacer <em><tt>pojo</tt></em> par <em><tt>exception</tt></em> dans le champs <em><tt>Name</tt></em> de la boite de dialogue <em><tt>New Java Package</tt></em> et cliquer sur <em><tt>Finish</tt></em>.</p>
-<h3 id="HError"><span style="text-decoration: underline;">Error</span></h3>
+<h3 id="HError">Error</span></h3>
 <p>Cette classe pojo va permettre de renvoyer une erreur généralisée au format json en cas d'anomalie de traitement dans le service web REST.<br /> Cette classe est la représentation la plus usuelle pour la gestion d'erreur dans le cas de service web REST.<br /> Elle se compose :</p>
 <ul>
 <li>Code status HTTP</li>
@@ -352,7 +352,7 @@ public String getPlusDInfo() {
 public void setPlusDInfo(final String plusDInfo) {
  this.plusDInfo = plusDInfo;
 }</pre>
-<h3 id="HErrorHandler"><span style="text-decoration: underline;">ErrorHandler</span></h3>
+<h3 id="HErrorHandler">ErrorHandler</span></h3>
 <p>Cette classe va permettre de centraliser la gestion d'erreur au sein du web service REST.</p>
 <p>Création d'une nouvelle classe dans le package <em><tt>fr.gillouard.spring.restws.exception</tt></em>. Pour cela faire un clic droit sur le package et cliquer sur <em><tt>New/Class</tt></em>.<br /> Saisir <em><tt>ErrorHandler</tt></em> dans le champs <em><tt>Name</tt></em> de la boite de dialogue <em><tt>New Java Class</tt></em> puis cliquer sur <em><tt>Finish</tt></em>.<br /> Ouvrir le fichier <em><tt>ErrorHandler.java</tt></em> en double cliquant dessus.</p>
 <p>Ajouter les imports suivants à la classe :</p>
@@ -418,7 +418,7 @@ import fr.gillouard.spring.restws.pojo.Error;</pre>
 <li>la méthode <em><tt>internalServerError</tt></em> va traiter toutes les erreurs de type <em><tt>Exception</tt></em>, elle va retourner un objet <em><tt>Error</tt></em> sous format json (<em><tt>@ResponseBody</tt></em>) dans le corps de la response et le status http du header sera <em><tt>INTERNAL_SERVER_ERROR</tt></em>. Tout ceci étant spécifié via les annotations. La fonction se contente de créer une erreur de type technique pour l'exemple et transforme la stacktrace de l'erreur en chaine via la méthode utilitaire <em><tt>getStackTrace</tt></em>.</li>
 <li>la méthode <em><tt>indexOutOfBoundsExceptionError</tt></em> va traiter toutes les erreurs de type <em><tt>IndexOutOfBoundsException</tt></em>, elle va retourner un objet <em><tt>Error</tt></em> sous format json (<em><tt>@ResponseBody</tt></em>) dans le corps de la response et le status http du header sera <em><tt>INTERNAL_SERVER_ERROR</tt></em>. Tout ceci étant spécifié via les annotations. La fonction se contente de créer une erreur de type fonctionel pour l'exemple et transforme la stacktrace de l'erreur en chaine via la méthode utilitaire <em><tt>getStackTrace</tt></em>.</li>
 </ul>
-<h3 id="HClientControleur.java"><span style="text-decoration: underline;">ClientControleur.java</span></h3>
+<h3 id="HClientControleur.java">ClientControleur.java</span></h3>
 <p>Pour illustrer la gestion d'erreur, on va modifier la méthode <em><tt>getClients</tt></em> de la classe <em><tt>ClientControleur</tt></em> pour que cette dernière lève une exception.<br /> Pour cela, ouvrir le fichier <em><tt>ClientControleur.java</tt></em> en double cliquant dessus.</p>
 <p>Remplacer l'implémentation de la fonction <em><tt>getClients</tt></em> existante par le code ci-dessous et enregistrer :</p>
 <pre class="lang:java decode:true " title="getClients"> /**
@@ -432,7 +432,7 @@ import fr.gillouard.spring.restws.pojo.Error;</pre>
   throw new Exception("Test erreur");
  }</pre>
 <p>Ce code se bornant à renvoyer une exception avec le message "Test erreur" à chaque appel.</p>
-<h3 id="HClientRestError"><span style="text-decoration: underline;">ClientRestError</span></h3>
+<h3 id="HClientRestError">ClientRestError</span></h3>
 <p>On va ajouter une classe dans le projet <em><tt>SpringRestClient</tt></em> pour tester la gestion des erreurs.</p>
 <p>Création d'une nouvelle classe dans le package <em><tt>fr.gillouard.spring.restclient</tt></em>. Pour cela faire un clic droit sur le package <em><tt>fr.gillouard.spring.restclient</tt></em> et cliquer sur <em><tt>New/Class</tt></em>.<br /> Saisir <em><tt>RestClientError</tt></em> dans le champs <em><tt>Name</tt></em> de la boite de dialogue <em><tt>New Java Class</tt></em> et cocher public <em><tt>static void main(String[] args)</tt></em> puis cliquer sur <em><tt>Finish</tt></em>.<br /> Ouvrir le fichier <em><tt>RestClientError.java</tt></em> en double cliquant dessus.</p>
 <p>Ajouter les imports suivants à la classe :</p>
@@ -463,7 +463,7 @@ import fr.gillouard.spring.restclient.pojo.Client;</pre>
    System.out.println(hsce.getResponseBodyAsString());
  }</pre>
 <p>Le premier appel essaye de récupérer la liste des clients qui renvoie désormais toujours une exception. Cette dernière est juste interceptée et affichée sous forme de chaîne. Il serait assez facile de la transformer en classe <em><tt>Error</tt></em> si cette dernière était importé dans le projet pour réaliser un traitement plus fin.<br /> Le second appel essaye de consulter un client, mais l'identifiant est inconnu ce qui entraîne une levé d'exception qui est interceptée et affichée sous forme de chaîne.<br /> On remarquera que l'affichage des deux chaînes, permet de vérifier les types différents d'erreurs et que les stacktraces sont bien rapatriées.</p>
-<h3 id="HRuntimeError"><span style="text-decoration: underline;">Runtime Error</span></h3>
+<h3 id="HRuntimeError">Runtime Error</span></h3>
 <p>Dans la vue <em><tt>Server</tt></em>, effectuer à nouveau un clic droit sur le serveur cible et cliquer sur <em><tt>Debug</tt></em>.<br /> Un fois le serveur démarré, effectuer un clic droit sur la classe <em><tt>RestClientError</tt> dans la vue <em><tt>Project Explorer</tt></em>, puis <em><tt>Debug As/Java Application</tt></em>.</em></p>
 <p>La vue <em><tt>Console</tt></em> devrait ressembler à ceci :</p>
 <pre class="lang:sh decode:true " title="Resultat appel en erreur">août 14, 2015 8:53:59 AM org.springframework.web.client.RestTemplate handleResponseError
@@ -473,7 +473,7 @@ août 14, 2015 8:53:59 AM org.springframework.web.client.RestTemplate handleResp
 AVERTISSEMENT: GET request for "http://localhost:8080/SpringRestWS/client/-1" resulted in 500 (Erreur Interne de Servlet); invoking error handler
 {"status":869080550,"code":"ErrFonctionnel","message":"-1","messageDeveloppeur":"java.lang.ArrayIndexOutOfBoundsException: -1\n\tat java.util.ArrayList.elementData(ArrayList.java:418)\n\tat java.util.ArrayList.get(ArrayList.java:431)\n\tat fr.gillouard.spring.restws.controller.ClientControleur.getClient(ClientControleur.java:85)\n\tat sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)\n\tat sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)\n\tat sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)\n\tat java.lang.reflect.Method.invoke(Method.java:483)\n\tat org.springframework.web.method.support.InvocableHandlerMethod.invoke(InvocableHandlerMethod.java:215)\n\tat org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:132)\n\tat org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:104)\n\tat org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandleMethod(RequestMappingHandlerAdapter.java:781)\n\tat org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:721)\n\tat org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:83)\n\tat org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:943)\n\tat org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:877)\n\tat org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:966)\n\tat org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:857)\n\tat javax.servlet.http.HttpServlet.service(HttpServlet.java:620)\n\tat org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:842)\n\tat javax.servlet.http.HttpServlet.service(HttpServlet.java:727)\n\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:303)\n\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:208)\n\tat org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)\n\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:241)\n\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:208)\n\tat org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:220)\n\tat org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:122)\n\tat org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:503)\n\tat org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:170)\n\tat org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:103)\n\tat org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:950)\n\tat org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:116)\n\tat org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:421)\n\tat org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1070)\n\tat org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:611)\n\tat org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:314)\n\tat java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)\n\tat java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)\n\tat org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)\n\tat java.lang.Thread.run(Thread.java:745)\n","plusDInfo":"A definir"}
 </pre>
-<h3 id="HConclusion"><span style="text-decoration: underline;">Conclusion</span></h3>
+<h2 id="HConclusion">Conclusion</span></h2>
 <p>Ce tutorial a permis d'expliquer la mise en oeuvre d'un web service REST en utilisant <em><tt>Spring</tt></em> sur les commandes de base HTTP.<br /> Un mécanisme de gestion d'erreur sur la partie contrôleur a été décrite et implémentée.<br /> Ce tutorial est un tour succint sur les possibilités offertes par le framework <em><tt>Spring</tt></em>, je vous invite fortément à compléter ces informations par la documentation présente sur le site <a href="http://spring.io/">http://spring.io/</a> surtout les onglets <em><tt>Docs</tt></em> et <em><tt>Guides</tt></em>.</p>
-<h2><span style="text-decoration: underline;">Solution</span></h2>
+<h2>Solution</span></h2>
 <p>L'ensemble des sources de ce tutorial est disponible sous le tag <em><tt>step2</tt></em> sous les projets <em><tt>SpringRestWS</tt></em> et <em><tt>SpringRestClient</tt></em> présent sur mon dépôt <em><tt>Github</tt></em></p>
