@@ -1,0 +1,34 @@
+---
+layout: post
+title: Memo Commandes Shell 
+date: 2017-11-27 08:06:40.000000000 +02:00
+type: post
+published: true
+status: publish
+categories:
+- Informatique
+tags: []
+meta:
+  _edit_last: '1'
+author:
+  login: superuser
+  email: frederic.gillouard@gmail.com
+  display_name: superuser
+  first_name: ''
+  last_name: ''
+---
+<ul>
+<li>Se logger en root avec son environnement (lorsque que l'on est sudoer) : <em><tt>sudo -i</tt></em></li>
+<br>
+<li>Supprimer une ligne dont on connait le numèro dans un fichier non binaire (ex: 33ème ligne) : <em><tt>sed -i -e '33d' nom_du_fichier</tt></em></li>
+<br>
+<li>Connaître les différentes ip associées aux interfaces sous linux : <em><tt>ip a</tt></em></li>
+<br>
+<li>Remplacer une chaine dans plusieurs fichiers avec grep et sed sous linux : <em><tt>grep -rl matchstring somedir/ | xargs sed -i 's/string1/string2/g'</tt></em></li>
+<br>
+<li>Connaître l'état des connexions sur une machine linux : <em><tt>netstat -anotp</tt></em></li>
+<br>
+<li>Escaper une variable dans un script shell : <em><tt>variable_escaped=$(echo "${variable}" | sed -e 's/[\/&]/\\&/g')</tt></em></li>
+</ul>
+
+
